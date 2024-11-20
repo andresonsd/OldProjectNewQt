@@ -54,3 +54,6 @@ compile_commands.json
 *_qmlcache.qrc
 *.temp-stream-f3fc89
 *.temp-stream-f38a6e
+/.qtc_clangd/.cache/clangd/index
+/build/Desktop-Debug
+/build/Desktop-Release

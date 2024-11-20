@@ -52,3 +52,5 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+*.temp-stream-f3fc89
+*.temp-stream-f38a6e

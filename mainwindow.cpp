@@ -60,12 +60,12 @@ void MainWindow::on_actionCocktail_triggered()
     sort->cocktail(vet, sort->n);
     sort->tempoCocktail = timer.nsecsElapsed();
 
-    printf("\nCocktail\n");
+    // printf("\nCocktail\n");
 
-    for(int i = 0; i<sort->n;i++){
-        printf("%d\t", vet[i]);
-    }
-    printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaCocktail, sort->comparaCocktail, sort->tempoCocktail);
+    // for(int i = 0; i<sort->n;i++){
+    //     printf("%d\t", vet[i]);
+    // }
+    // printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaCocktail, sort->comparaCocktail, sort->tempoCocktail);
 }
 
 void MainWindow::on_actionSelection_triggered()
@@ -87,12 +87,13 @@ void MainWindow::on_actionSelection_triggered()
     timer.start();
     sort->selection(vet, sort->n);
     sort->tempoSelection = timer.nsecsElapsed();
-    printf("\nSelection\n");
 
-    for(int i = 0; i<sort->n;i++){
-        printf("%d\t", vet[i]);
-    }
-    printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaSelection, sort->comparaSelection, sort->tempoSelection);
+    // printf("\nSelection\n");
+
+    // for(int i = 0; i<sort->n;i++){
+    //     printf("%d\t", vet[i]);
+    // }
+    // printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaSelection, sort->comparaSelection, sort->tempoSelection);
 }
 
 void MainWindow::on_actionInsertion_triggered()
@@ -114,12 +115,13 @@ void MainWindow::on_actionInsertion_triggered()
     timer.start();
     sort->insertion(vet, sort->n);
     sort->tempoInsertion = timer.nsecsElapsed();
-    printf("\nInsertion\n");
 
-    for(int i = 0; i<sort->n;i++){
-        printf("%d\t", vet[i]);
-    }
-    printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaInsertion, sort->comparaInsertion, sort->tempoInsertion);
+    // printf("\nInsertion\n");
+
+    // for(int i = 0; i<sort->n;i++){
+    //     printf("%d\t", vet[i]);
+    // }
+    // printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaInsertion, sort->comparaInsertion, sort->tempoInsertion);
 }
 
 void MainWindow::on_actionBubble_triggered()
@@ -141,12 +143,13 @@ void MainWindow::on_actionBubble_triggered()
     timer.start();
     sort->bubble(vet, sort->n);
     sort->tempoBubble = timer.nsecsElapsed();
-    printf("\nBubble\n");
 
-    for(int i = 0; i<sort->n;i++){
-        printf("%d\t", vet[i]);
-    }
-    printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaBubble, sort->comparaBubble, sort->tempoBubble);
+    // printf("\nBubble\n");
+
+    // for(int i = 0; i<sort->n;i++){
+    //     printf("%d\t", vet[i]);
+    // }
+    // printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaBubble, sort->comparaBubble, sort->tempoBubble);
 }
 
 void MainWindow::on_actionMerge_triggered()
@@ -170,11 +173,11 @@ void MainWindow::on_actionMerge_triggered()
     sort->merge(vet,0,sort->n);
     sort->tempoMerge = timer.nsecsElapsed();
 
-    printf("Merge\n");
-    for(int i=0;i<sort->n;i++){
-        printf("%d\t", vet[i]);
-    }
-    printf("\n\ntrocas: %d\ncomparacoes: %d\ntempo %d\n", sort->trocaMerge, sort->comparaMerge,sort->tempoMerge);
+    // printf("Merge\n");
+    // for(int i=0;i<sort->n;i++){
+    //     printf("%d\t", vet[i]);
+    // }
+    // printf("\n\ntrocas: %d\ncomparacoes: %d\ntempo %d\n", sort->trocaMerge, sort->comparaMerge,sort->tempoMerge);
 }
 
 void MainWindow::on_actionQuick_triggered()
@@ -198,11 +201,11 @@ void MainWindow::on_actionQuick_triggered()
     sort->quick(vet,0, sort->n);
     sort->tempoQuick = timer.nsecsElapsed();
 
-    printf("Quick\n");
-    for(int i=0;i<sort->n;i++){
-        printf("%d\t", vet[i]);
-    }
-    printf("\n\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaQuick, sort->comparaQuick, sort->tempoQuick);
+    // printf("Quick\n");
+    // for(int i=0;i<sort->n;i++){
+    //     printf("%d\t", vet[i]);
+    // }
+    // printf("\n\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaQuick, sort->comparaQuick, sort->tempoQuick);
 
 }
 
@@ -225,12 +228,13 @@ void MainWindow::on_actionShell_triggered()
     timer.start();
     sort->shell(vet, sort->n);
     sort->tempoShel = timer.nsecsElapsed();
-    printf("\nShell\n");
 
-    for(int i = 0; i<sort->n;i++){
-        printf("%d\t", vet[i]);
-    }
-    printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaShell, sort->comparaShell, sort->tempoShel);
+    // printf("\nShell\n");
+
+    // for(int i = 0; i<sort->n;i++){
+    //     printf("%d\t", vet[i]);
+    // }
+    // printf("\ntrocas: %d\ncomparacoes: %d\ntempo: %d\n", sort->trocaShell, sort->comparaShell, sort->tempoShel);
 }
 
  void MainWindow::on_actionCocktail_2_triggered()
@@ -522,10 +526,12 @@ void MainWindow::on_actionMerge_2_triggered()
 void MainWindow::on_actionQuick_2_triggered()
 {
     for(int i=0; i<10;i++)
+    {
         sort->pontos[i]=0;
+    }
 
-    for(int i=0, j=10; i<10;i++, j+=10){
-
+    for(int i=0, j=10; i<10;i++, j+=10)
+    {
         int vet[j];
 
         sort->posicoes(j);
@@ -541,12 +547,16 @@ void MainWindow::on_actionQuick_2_triggered()
     int vet[10];
 
     for(int i=0; i<10;i++)
+    {
         vet[i]=0;
+    }
 
     vet[0]=10;
 
     for(int i = 1; i< 10; i++)
+    {
         vet[i]=vet[i-1]+10;
+    }
 
     QVector<double> x(10), y(10);
     for (int i=0; i<10; ++i)

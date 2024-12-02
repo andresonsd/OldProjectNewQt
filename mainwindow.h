@@ -56,6 +56,8 @@ private slots:
 
     void on_actionDigite_o_valor_desejado_triggered();
 
+    void showGraph(QVector<double> x, QVector<double> y);
+
 private:
     Ui::MainWindow *ui;
     SORT *sort;

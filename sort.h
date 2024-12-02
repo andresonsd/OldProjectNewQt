@@ -1,6 +1,8 @@
 #ifndef SORT_H
 #define SORT_H
 
+#define NUMERO_INTERACOES_GRAFICO 500
+
 class SORT{
 
 public:
@@ -35,7 +37,7 @@ public:
     int vet20[20], vet50[50], vet100[100];//vetores de valores que podem ser escolhidos
     int tempoCocktail, tempoSelection, tempoInsertion, tempoBubble, tempoShel, tempoMerge, tempoQuick;
     int vetPontos[10000];
-    int pontos[10];
+    int pontos[NUMERO_INTERACOES_GRAFICO];
 
 };
 

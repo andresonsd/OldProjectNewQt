@@ -239,14 +239,14 @@ void MainWindow::on_actionShell_triggered()
 
  void MainWindow::on_actionCocktail_2_triggered()
 {
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         sort->pontos[i]=0;
 
-    for(int i=0, j=10; i<1000;i++, j+=10){
+    for(int i=0, j=10; i<NUMERO_INTERACOES_GRAFICO;i++, j+=10){
 
         int vet[j];
 
-        printf("\n%d\t", j);
+        //printf("\n%d\t", j);
 
         sort->posicoes(j);
 
@@ -259,29 +259,24 @@ void MainWindow::on_actionShell_triggered()
         sort->pontos[i]=(sort->trocaCocktail+sort->comparaCocktail);
 
     }
-    int vet[1000];
+    int vet[NUMERO_INTERACOES_GRAFICO];
+
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
+        vet[i]=0;
 
     vet[0]=10;
 
-    for(int i = 1; i< 1000; i++)
+    for(int i = 1; i< NUMERO_INTERACOES_GRAFICO; i++)
         vet[i]=vet[i-1]+10;
 
-    QVector<double> x(10), y(10);
-    for (int i=0; i<1000; ++i)
+    QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
+    for (int i=0; i<NUMERO_INTERACOES_GRAFICO; ++i)
     {
       x[i] = vet[i];
       y[i] = sort->pontos[i];
     }
 
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
-
-    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
-    ui->customPlot->yAxis->setLabel("Numero de Iterações");
-
-    ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 7000);
-    ui->customPlot->replot();
+    showGraph(x, y);
 }
 
 void MainWindow::on_actionSelection_2_triggered()
@@ -319,24 +314,15 @@ void MainWindow::on_actionSelection_2_triggered()
       y[i] = sort->pontos[i];
     }
 
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
-
-    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
-    ui->customPlot->yAxis->setLabel("Numero de Iterações");
-
-    ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 7000);
-    ui->customPlot->replot();
-
+    showGraph(x, y);
 }
 
 void MainWindow::on_actionInsertion_2_triggered()
 {
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         sort->pontos[i]=0;
 
-    for(int i=0, j=10; i<10;i++, j+=10){
+    for(int i=0, j=10; i<NUMERO_INTERACOES_GRAFICO;i++, j+=10){
 
         int vet[j];
 
@@ -350,41 +336,33 @@ void MainWindow::on_actionInsertion_2_triggered()
         sort->insertion(vet, j);
         sort->pontos[i]=(sort->trocaInsertion+sort->comparaInsertion);
     }
-    int vet[10];
+    int vet[NUMERO_INTERACOES_GRAFICO];
 
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         vet[i]=0;
 
     vet[0]=10;
 
-    for(int i = 1; i< 10; i++)
+    for(int i = 1; i< NUMERO_INTERACOES_GRAFICO; i++)
         vet[i]=vet[i-1]+10;
 
-    QVector<double> x(10), y(10);
-    for (int i=0; i<10; ++i)
+    QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
+    for (int i=0; i<NUMERO_INTERACOES_GRAFICO; ++i)
     {
       x[i] = vet[i];
       y[i] = sort->pontos[i];
     }
 
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
-
-    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
-    ui->customPlot->yAxis->setLabel("Numero de Iterações");
-
-    ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 7000);
-    ui->customPlot->replot();
+    showGraph(x, y);
 
 }
 
 void MainWindow::on_actionBubble_2_triggered()
 {
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         sort->pontos[i]=0;
 
-    for(int i=0, j=10; i<10;i++, j+=10){
+    for(int i=0, j=10; i<NUMERO_INTERACOES_GRAFICO;i++, j+=10){
 
         int vet[j];
 
@@ -398,41 +376,32 @@ void MainWindow::on_actionBubble_2_triggered()
         sort->bubble(vet, j);
         sort->pontos[i]=(sort->trocaBubble+sort->comparaBubble);
     }
-    int vet[10];
+    int vet[NUMERO_INTERACOES_GRAFICO];
 
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         vet[i]=0;
 
     vet[0]=10;
 
-    for(int i = 1; i< 10; i++)
+    for(int i = 1; i< NUMERO_INTERACOES_GRAFICO; i++)
         vet[i]=vet[i-1]+10;
 
-    QVector<double> x(10), y(10);
-    for (int i=0; i<10; ++i)
+    QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
+    for (int i=0; i<NUMERO_INTERACOES_GRAFICO; ++i)
     {
       x[i] = vet[i];
       y[i] = sort->pontos[i];
     }
 
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
-
-    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
-    ui->customPlot->yAxis->setLabel("Numero de Iterações");
-
-    ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 7000);
-    ui->customPlot->replot();
-
+    showGraph(x, y);
 }
 
 void MainWindow::on_actionShell_2_triggered()
 {
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         sort->pontos[i]=0;
 
-    for(int i=0, j=10; i<10;i++, j+=10){
+    for(int i=0, j=10; i<NUMERO_INTERACOES_GRAFICO;i++, j+=10){
 
         int vet[j];
 
@@ -446,41 +415,33 @@ void MainWindow::on_actionShell_2_triggered()
         sort->shell(vet, j);
         sort->pontos[i]=(sort->trocaShell+sort->comparaShell);
     }
-    int vet[10];
+    int vet[NUMERO_INTERACOES_GRAFICO];
 
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         vet[i]=0;
 
     vet[0]=10;
 
-    for(int i = 1; i< 10; i++)
+    for(int i = 1; i< NUMERO_INTERACOES_GRAFICO; i++)
         vet[i]=vet[i-1]+10;
 
-    QVector<double> x(10), y(10);
-    for (int i=0; i<10; ++i)
+    QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
+    for (int i=0; i<NUMERO_INTERACOES_GRAFICO; ++i)
     {
       x[i] = vet[i];
       y[i] = sort->pontos[i];
     }
 
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
-
-    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
-    ui->customPlot->yAxis->setLabel("Numero de Iterações");
-
-    ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 7000);
-    ui->customPlot->replot();
+    showGraph(x, y);
 
 }
 
 void MainWindow::on_actionMerge_2_triggered()
 {
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         sort->pontos[i]=0;
 
-    for(int i=0, j=10; i<10;i++, j+=10){
+    for(int i=0, j=10; i<NUMERO_INTERACOES_GRAFICO;i++, j+=10){
 
         int vet[j];
 
@@ -494,43 +455,35 @@ void MainWindow::on_actionMerge_2_triggered()
         sort->merge(vet,0,j);
         sort->pontos[i]=(sort->trocaMerge+sort->comparaMerge);
     }
-    int vet[10];
+    int vet[NUMERO_INTERACOES_GRAFICO];
 
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
         vet[i]=0;
 
     vet[0]=10;
 
-    for(int i = 1; i< 10; i++)
+    for(int i = 1; i< NUMERO_INTERACOES_GRAFICO; i++)
         vet[i]=vet[i-1]+10;
 
-    QVector<double> x(10), y(10);
-    for (int i=0; i<10; ++i)
+    QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
+    for (int i=0; i<NUMERO_INTERACOES_GRAFICO; ++i)
     {
       x[i] = vet[i];
       y[i] = sort->pontos[i];
     }
 
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
-
-    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
-    ui->customPlot->yAxis->setLabel("Numero de Iterações");
-
-    ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 7000);
-    ui->customPlot->replot();
+    showGraph(x, y);
 
 }
 
 void MainWindow::on_actionQuick_2_triggered()
 {
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
     {
         sort->pontos[i]=0;
     }
 
-    for(int i=0, j=10; i<10;i++, j+=10)
+    for(int i=0, j=10; i<NUMERO_INTERACOES_GRAFICO;i++, j+=10)
     {
         int vet[j];
 
@@ -544,37 +497,28 @@ void MainWindow::on_actionQuick_2_triggered()
         sort->quick(vet,0,j);
         sort->pontos[i]=(sort->trocaQuick+sort->comparaQuick);
     }
-    int vet[10];
+    int vet[NUMERO_INTERACOES_GRAFICO];
 
-    for(int i=0; i<10;i++)
+    for(int i=0; i<NUMERO_INTERACOES_GRAFICO;i++)
     {
         vet[i]=0;
     }
 
     vet[0]=10;
 
-    for(int i = 1; i< 10; i++)
+    for(int i = 1; i< NUMERO_INTERACOES_GRAFICO; i++)
     {
         vet[i]=vet[i-1]+10;
     }
 
-    QVector<double> x(10), y(10);
-    for (int i=0; i<10; ++i)
+    QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
+    for (int i=0; i<NUMERO_INTERACOES_GRAFICO; ++i)
     {
       x[i] = vet[i];
       y[i] = sort->pontos[i];
     }
 
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
-
-    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
-    ui->customPlot->yAxis->setLabel("Numero de Iterações");
-
-    ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 7000);
-    ui->customPlot->replot();
-
+    showGraph(x, y);
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -616,6 +560,20 @@ void MainWindow::on_actionDigite_o_valor_desejado_triggered()
     sort->n=n;
     sort->inicio();
     sort->posicoes(sort->n);
+}
+
+void MainWindow::showGraph(QVector<double> x, QVector<double> y)
+{
+    ui->customPlot->addGraph();
+    ui->customPlot->graph(0)->setData(x, y);
+
+    ui->customPlot->xAxis->setLabel("Numero de Posições no Vetor");
+    ui->customPlot->yAxis->setLabel("Numero de Iterações");
+
+    ui->customPlot->xAxis->setRange(0, NUMERO_INTERACOES_GRAFICO);
+    ui->customPlot->yAxis->setRange(0, 7000);
+    ui->customPlot->replot();
+
 }
 
 

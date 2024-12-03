@@ -1,7 +1,7 @@
 #ifndef SORT_H
 #define SORT_H
 
-#define NUMERO_INTERACOES_GRAFICO 500
+#define NUMERO_INTERACOES_GRAFICO 100
 
 class SORT{
 

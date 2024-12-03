@@ -38,13 +38,19 @@ void SORT::posicoes20(){
     srand(time(NULL));
 
     for(int i=0;i<20;i++)
+    {
         vet20[i]=rand()%50;
+    }
 
     for(int i=0;i<50;i++)
+    {
         vet50[i]=0;
+    }
 
     for(int i=0;i<100;i++)
+    {
         vet100[i]=0;
+    }
 }
 
 void SORT::posicoes50(){

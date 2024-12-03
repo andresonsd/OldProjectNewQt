@@ -42,15 +42,25 @@ void MainWindow::on_action100_Posicoes_triggered()
 void MainWindow::on_actionCocktail_triggered()
 {
     int vet[sort->n];
-    for(int i=0;i<sort->n;i++){
+
+    for(int i=0;i<sort->n;i++)
+    {
         if(sort->n==20)
+        {
             vet[i]=sort->vet20[i];
+        }
         else if(sort->n==50)
+        {
             vet[i]=sort->vet50[i];
+        }
         else if(sort->n==100)
+        {
             vet[i]=sort->vet100[i];
+        }
         else
+        {
             vet[i]=sort->vetPontos[i];
+        }
     }
 
     sort->trocaCocktail=0;
@@ -71,15 +81,25 @@ void MainWindow::on_actionCocktail_triggered()
 void MainWindow::on_actionSelection_triggered()
 {
     int vet[sort->n];
-    for(int i=0;i<sort->n;i++){
+
+    for(int i=0;i<sort->n;i++)
+    {
         if(sort->n==20)
+        {
             vet[i]=sort->vet20[i];
+        }
         else if(sort->n==50)
+        {
             vet[i]=sort->vet50[i];
+        }
         else if(sort->n==100)
+        {
             vet[i]=sort->vet100[i];
+        }
         else
+        {
             vet[i]=sort->vetPontos[i];
+        }
     }
     sort->trocaSelection=0;
     sort->comparaSelection=0;
@@ -99,15 +119,25 @@ void MainWindow::on_actionSelection_triggered()
 void MainWindow::on_actionInsertion_triggered()
 {
     int vet[sort->n];
-    for(int i=0;i<sort->n;i++){
+
+    for(int i=0;i<sort->n;i++)
+    {
         if(sort->n==20)
+        {
             vet[i]=sort->vet20[i];
+        }
         else if(sort->n==50)
+        {
             vet[i]=sort->vet50[i];
+        }
         else if(sort->n==100)
+        {
             vet[i]=sort->vet100[i];
+        }
         else
+        {
             vet[i]=sort->vetPontos[i];
+        }
     }
     sort->trocaInsertion=0;
     sort->comparaInsertion=0;
@@ -127,15 +157,25 @@ void MainWindow::on_actionInsertion_triggered()
 void MainWindow::on_actionBubble_triggered()
 {
     int vet[sort->n];
-    for(int i=0;i<sort->n;i++){
+
+    for(int i=0;i<sort->n;i++)
+    {
         if(sort->n==20)
+        {
             vet[i]=sort->vet20[i];
+        }
         else if(sort->n==50)
+        {
             vet[i]=sort->vet50[i];
+        }
         else if(sort->n==100)
+        {
             vet[i]=sort->vet100[i];
+        }
         else
+        {
             vet[i]=sort->vetPontos[i];
+        }
     }
     sort->trocaBubble=0;
     sort->comparaBubble=0;
@@ -156,15 +196,25 @@ void MainWindow::on_actionMerge_triggered()
 {
 
     int vet[sort->n];
-    for(int i=0;i<sort->n;i++){
+
+    for(int i=0;i<sort->n;i++)
+    {
         if(sort->n==20)
+        {
             vet[i]=sort->vet20[i];
+        }
         else if(sort->n==50)
+        {
             vet[i]=sort->vet50[i];
+        }
         else if(sort->n==100)
+        {
             vet[i]=sort->vet100[i];
+        }
         else
+        {
             vet[i]=sort->vetPontos[i];
+        }
     }
     sort->trocaMerge=0;
     sort->comparaMerge=0;
@@ -183,15 +233,25 @@ void MainWindow::on_actionMerge_triggered()
 void MainWindow::on_actionQuick_triggered()
 {
     int vet[sort->n];
-    for(int i=0;i<sort->n;i++){
+
+    for(int i=0;i<sort->n;i++)
+    {
         if(sort->n==20)
+        {
             vet[i]=sort->vet20[i];
+        }
         else if(sort->n==50)
+        {
             vet[i]=sort->vet50[i];
+        }
         else if(sort->n==100)
+        {
             vet[i]=sort->vet100[i];
+        }
         else
+        {
             vet[i]=sort->vetPontos[i];
+        }
     }
 
     sort->trocaQuick=0;
@@ -212,15 +272,25 @@ void MainWindow::on_actionQuick_triggered()
 void MainWindow::on_actionShell_triggered()
 {
     int vet[sort->n];
-    for(int i=0;i<sort->n;i++){
+
+    for(int i=0;i<sort->n;i++)
+    {
         if(sort->n==20)
+        {
             vet[i]=sort->vet20[i];
+        }
         else if(sort->n==50)
+        {
             vet[i]=sort->vet50[i];
+        }
         else if(sort->n==100)
+        {
             vet[i]=sort->vet100[i];
+        }
         else
+        {
             vet[i]=sort->vetPontos[i];
+        }
     }
     sort->trocaShell=0;
     sort->comparaShell=0;
@@ -523,33 +593,33 @@ void MainWindow::on_actionQuick_2_triggered()
 
 void MainWindow::on_pushButton_clicked()
 {
-    ui->label_10->setNum(sort->comparaCocktail);
-    ui->label_11->setNum(sort->trocaCocktail);
-    ui->label_12->setNum(sort->tempoCocktail);
+    ui->cocktailCompare->setNum(sort->comparaCocktail);
+    ui->cocktailChanges->setNum(sort->trocaCocktail);
+    ui->cocktailTime->setNum((sort->tempoCocktail)/100);
 
-    ui->label_13->setNum(sort->comparaSelection);
-    ui->label_14->setNum(sort->trocaSelection);
-    ui->label_15->setNum(sort->tempoSelection);
+    ui->selectionCompare->setNum(sort->comparaSelection);
+    ui->selectionChanges->setNum(sort->trocaSelection);
+    ui->selectionTime->setNum((sort->tempoSelection)/100);
 
-    ui->label_16->setNum(sort->comparaInsertion);
-    ui->label_17->setNum(sort->trocaInsertion);
-    ui->label_18->setNum(sort->tempoInsertion);
+    ui->insertionCompare->setNum(sort->comparaInsertion);
+    ui->insertionChanges->setNum(sort->trocaInsertion);
+    ui->insertionTime->setNum((sort->tempoInsertion)/100);
 
     ui->label_19->setNum(sort->comparaBubble);
     ui->label_20->setNum(sort->trocaBubble);
-    ui->label_21->setNum(sort->tempoBubble);
+    ui->label_21->setNum((sort->tempoBubble)/100);
 
     ui->label_22->setNum(sort->comparaMerge);
     ui->label_23->setNum(sort->trocaMerge);
-    ui->label_24->setNum(sort->tempoMerge);
+    ui->label_24->setNum((sort->tempoMerge)/100);
 
     ui->label_25->setNum(sort->comparaQuick);
     ui->label_26->setNum(sort->trocaQuick);
-    ui->label_27->setNum(sort->tempoQuick);
+    ui->label_27->setNum((sort->tempoQuick)/100);
 
     ui->label_31->setNum(sort->comparaShell);
     ui->label_30->setNum(sort->trocaShell);
-    ui->label_29->setNum(sort->tempoShel);
+    ui->label_29->setNum((sort->tempoShel)/100);
 }
 
 void MainWindow::on_actionDigite_o_valor_desejado_triggered()
@@ -571,7 +641,7 @@ void MainWindow::showGraph(QVector<double> x, QVector<double> y)
     ui->customPlot->yAxis->setLabel("Numero de Iterações");
 
     ui->customPlot->xAxis->setRange(0, NUMERO_INTERACOES_GRAFICO);
-    ui->customPlot->yAxis->setRange(0, 7000);
+    ui->customPlot->yAxis->setRange(0, 10000);
     ui->customPlot->replot();
 
 }

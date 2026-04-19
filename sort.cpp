@@ -1,257 +1,169 @@
-#include<stdio.h>
 #include "sort.h"
-#include <stdlib.h>// necessário p/ as funções rand() e srand()
-#include <time.h>//necessário p/ função time()
+#include <cstdlib>
+#include <ctime>
+#include <algorithm> // Para std::swap
+#include <vector>
 
+SORT::SORT() {
+    n = 0;
+    inicio();
+}
 
-SORT::SORT(){}
+SORT::~SORT() {}
 
-SORT::~SORT(){}
+void SORT::inicio() {
+    comparaBubble = comparaCocktail = comparaInsertion = comparaMerge = comparaQuick = comparaSelection = comparaShell = 0;
+    trocaBubble = trocaCocktail = trocaInsertion = trocaMerge = trocaQuick = trocaSelection = trocaShell = 0;
+    tempoBubble = tempoCocktail = tempoInsertion = tempoMerge = tempoQuick = tempoSelection = tempoShel = 0;
+}
 
-void SORT::posicoes(int n){
-
+void SORT::posicoes(int n_val) {
+    this->n = n_val;
     srand(time(NULL));
-
-    for(int i=0;i<n;i++)
-        vetPontos[i]=rand()%1000;
-
-    for(int i=0;i<20;i++)
-        vet20[i]=0;
-
-    for(int i=0;i<50;i++)
-        vet50[i]=0;
-
-    for(int i=0;i<100;i++)
-        vet100[i]=0;
+    for(int i = 0; i < n_val && i < 10000; i++)
+        vetPontos[i] = rand() % 1000;
 }
 
-void SORT::inicio(){
-    comparaBubble=comparaCocktail=comparaInsertion=comparaMerge=comparaQuick=comparaSelection=comparaShell=0;
-    trocaBubble=trocaCocktail=trocaInsertion=trocaMerge=trocaQuick=trocaSelection=trocaShell=0;
-    tempoBubble=tempoCocktail=tempoInsertion=tempoMerge=tempoQuick=tempoSelection=tempoShel=0;
-}
-
-void SORT::posicoes20(){
-
-    n=20;
-
+void SORT::posicoes20() {
+    n = 20;
     srand(time(NULL));
-
-    for(int i=0;i<20;i++)
-    {
-        vet20[i]=rand()%50;
-    }
-
-    for(int i=0;i<50;i++)
-    {
-        vet50[i]=0;
-    }
-
-    for(int i=0;i<100;i++)
-    {
-        vet100[i]=0;
-    }
+    for(int i = 0; i < 20; i++) vet20[i] = rand() % 50;
 }
 
-void SORT::posicoes50(){
-
-    n=50;
-
-    for(int i=0;i<20;i++)
-        vet20[i]=0;
-
-    for(int i=0;i<50;i++)
-        vet50[i]=rand()%150;
-
-    for(int i=0;i<100;i++)
-        vet100[i]=0;
+void SORT::posicoes50() {
+    n = 50;
+    srand(time(NULL));
+    for(int i = 0; i < 50; i++) vet50[i] = rand() % 150;
 }
 
-void SORT::posicoes100(){
-
-    n=100;
-
-    for(int i=0;i<20;i++)
-        vet20[i]=0;
-
-    for(int i=0;i<50;i++)
-        vet50[i]=0;
-
-    for(int i=0;i<100;i++)
-        vet100[i]=rand()%300;
+void SORT::posicoes100() {
+    n = 100;
+    srand(time(NULL));
+    for(int i = 0; i < 100; i++) vet100[i] = rand() % 300;
 }
 
-void SORT::cocktail(int vet[],int n){
+// --- ALGORITMOS ---
 
-    int i=0, fim=0, ini=0, aux=0;
-
-    bool verif = false;
-    fim = n-1;
-    while(verif == false && ini < fim){
-        verif = true;
-        for(i = ini; i< fim; i++){
+void SORT::cocktail(int vet[], int n) {
+    bool trocou = true;
+    int ini = 0, fim = n - 1;
+    while(trocou) {
+        trocou = false;
+        for(int i = ini; i < fim; i++) {
             comparaCocktail++;
-            if(vet[i] > vet[i+1]){
-                aux = vet[i];
-                vet[i]=vet[i+1];
-                vet[i+1] = aux;
+            if(vet[i] > vet[i+1]) {
+                std::swap(vet[i], vet[i+1]);
                 trocaCocktail++;
-                verif = false;
+                trocou = true;
             }
         }
+        if(!trocou) break;
+        trocou = false;
         fim--;
-        for(i=fim;i>ini;i--){
-            if(vet[i]<vet[i-1]){
-                aux = vet[i];
-                vet[i] = vet[i-1];
-                vet[i-1] = aux;
-                trocaCocktail++;
-                verif = false;
-            }
+        for(int i = fim - 1; i >= ini; i--) {
             comparaCocktail++;
+            if(vet[i] > vet[i+1]) {
+                std::swap(vet[i], vet[i+1]);
+                trocaCocktail++;
+                trocou = true;
+            }
         }
         ini++;
     }
 }
 
-void SORT::selection(int vet[],int n){
-
-    for (int i = 0; i < (n-1); i++){
+void SORT::selection(int vet[], int n) {
+    for (int i = 0; i < n - 1; i++) {
         int menor = i;
-        for (int j = (i+1); j < n; j++){
+        for (int j = i + 1; j < n; j++) {
             comparaSelection++;
-            if(vet[j] < vet[menor])
-                menor = j;
+            if(vet[j] < vet[menor]) menor = j;
         }
-        int aux = vet[i];
-        vet[i] = vet[menor];
-        vet[menor] = aux;
+        std::swap(vet[i], vet[menor]);
         trocaSelection++;
     }
 }
 
-void SORT::insertion(int vet[],int n){
-
+void SORT::insertion(int vet[], int n) {
     for (int i = 1; i < n; i++) {
         int j = i;
-        comparaInsertion++;
-        while ((j > 0) && (vet[j - 1] > vet[j])) {
-            if(vet[j-1]>vet[j])
-                comparaInsertion++;
-            int aux = vet[j - 1];
-            vet[j - 1] = vet[j];
-            vet[j] = aux;
-            j--;
-
-        trocaInsertion++;
+        while (j > 0) {
+            comparaInsertion++;
+            if (vet[j-1] > vet[j]) {
+                std::swap(vet[j-1], vet[j]);
+                trocaInsertion++;
+                j--;
+            } else break;
         }
     }
 }
 
-void SORT::bubble(int vet[], int n){
-
-    for(int i=0;i<n;i++){
-        for(int j=n-1;j>i;j--){
+void SORT::bubble(int vet[], int n) {
+    for(int i = 0; i < n - 1; i++) {
+        for(int j = n - 1; j > i; j--) {
             comparaBubble++;
-            if(vet[j]<vet[j-1]){
-                int aux=vet[j];
-                vet[j]=vet[j-1];
-                vet[j-1]=aux;
+            if(vet[j] < vet[j-1]) {
+                std::swap(vet[j], vet[j-1]);
                 trocaBubble++;
             }
         }
     }
 }
 
-void SORT::shell(int vet[], int n){
-
-    int h = n;
-    do{
-        h = (h + 1)/2;
-        for (int i =0; i < (n - h); i++){
-            comparaShell++;
-            if (vet[i + h] < vet[i]){
-                int aux = vet[i+h];
-                vet[i + h] = vet[i];
-                vet[i] = aux;
-                trocaShell++;
+void SORT::shell(int vet[], int n) {
+    for (int h = n / 2; h > 0; h /= 2) {
+        for (int i = h; i < n; i++) {
+            int temp = vet[i];
+            int j;
+            for (j = i; j >= h; j -= h) {
+                comparaShell++;
+                if(vet[j - h] > temp) {
+                    vet[j] = vet[j - h];
+                    trocaShell++;
+                } else break;
             }
+            vet[j] = temp;
         }
-    }while(h > 1);
+    }
 }
 
-void SORT::merge(int vet[], int p, int r){
+void SORT::merge(int vet[], int p, int r) {
     if (p < r) {
-        int q = (r+p)/2;
-
+        int q = p + (r - p) / 2;
         merge(vet, p, q);
-        merge(vet, q+1, r);
-        sort(vet, p, q, r);
+        merge(vet, q + 1, r);
+        mergeIntercala(vet, p, q, r);
     }
 }
 
-void SORT::sort(int vet[], int p, int q, int r) {
-    int com1 = p, com2 = q+1, aux = 0, tam = r-p+1;
-    int *vetAux;
-    vetAux = (int*)malloc(tam * sizeof(int));
-
-    while(com1 <= q && com2 <= r){
+void SORT::mergeIntercala(int vet[], int p, int q, int r) {
+    int tam = r - p + 1;
+    std::vector<int> aux(tam);
+    int i = p, j = q + 1, k = 0;
+    while(i <= q && j <= r) {
         comparaMerge++;
-        if(vet[com1] < vet[com2]) {
-            vetAux[aux] = vet[com1];
-            com1++;
-        } else {
-            vetAux[aux] = vet[com2];
-            com2++;
-        }
-        trocaMerge++;
-        aux++;
-    }
-
-    while(com1 <= q){  //Caso ainda haja elementos na primeira metade
-        vetAux[aux] = vet[com1];
-        aux++;
-        com1++;
+        if(vet[i] <= vet[j]) aux[k++] = vet[i++];
+        else aux[k++] = vet[j++];
         trocaMerge++;
     }
-
-    while(com2 <= r) {   //Caso ainda haja elementos na segunda metade
-        vetAux[aux] = vet[com2];
-        aux++;
-        com2++;
-        trocaMerge++;
-    }
-
-    for(aux = p; aux <= r; aux++){    //Move os elementos de volta para o vet original
-        vet[aux] = vetAux[aux-p];
-    }
-
-    free(vetAux);
+    while(i <= q) { aux[k++] = vet[i++]; trocaMerge++; }
+    while(j <= r) { aux[k++] = vet[j++]; trocaMerge++; }
+    for(i = 0; i < tam; i++) vet[p + i] = aux[i];
 }
 
-void SORT::quick(int vet[], int ini, int n){
-
-    int i=ini, j=n-1, pivo=vet[(ini + n) / 2];
-    while(i <= j){
-        while(vet[i] < pivo && i < n){
-            i++;
-        }
-        while(vet[j] > pivo && j > ini){
-            j--;
-        }
-        if(i <= j){
-            int aux = vet[i];
-            vet[i] = vet[j];
-            vet[j] = aux;
-            i++;
-            j--;
+void SORT::quick(int vet[], int ini, int fim) {
+    int i = ini, j = fim;
+    int pivo = vet[(ini + fim) / 2];
+    while (i <= j) {
+        while (vet[i] < pivo) i++;
+        while (vet[j] > pivo) j--;
+        if (i <= j) {
+            std::swap(vet[i], vet[j]);
             trocaQuick++;
+            i++; j--;
         }
     }
     comparaQuick++;
-    if(j > ini)
-        quick(vet, ini, j+1);
-    if(i < n)
-        quick(vet, i, n);
+    if (ini < j) quick(vet, ini, j);
+    if (i < fim) quick(vet, i, fim);
 }
-

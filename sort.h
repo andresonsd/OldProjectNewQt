@@ -1,44 +1,50 @@
 #ifndef SORT_H
 #define SORT_H
 
-#define NUMERO_INTERACOES_GRAFICO 100
+#include <vector>
 
-class SORT{
+const int NUMERO_INTERACOES_GRAFICO = 100;
 
+class SORT {
 public:
     SORT();
     ~SORT();
 
-    //escolhas possiveis de tamanho de vetor
+    // Configuração de dados
+    void inicio();
+    void posicoes(int n);
     void posicoes20();
     void posicoes50();
     void posicoes100();
-    void posicoes(int);
 
-    //metodos de ordenação a serem comparados
-    void cocktail(int[], int);
-    void selection(int[], int);
-    void insertion(int[], int);
-    void bubble(int[], int);
-    void shell(int[], int);
-    void merge(int[], int, int);
-    void sort(int[], int, int,int);
-    void quick(int[], int, int);
-    void inicio();
+    // Algoritmos
+    void cocktail(int vet[], int n);
+    void selection(int vet[], int n);
+    void insertion(int vet[], int n);
+    void bubble(int vet[], int n);
+    void shell(int vet[], int n);
+    void merge(int vet[], int p, int r); // Chamada principal
+    void quick(int vet[], int ini, int fim);
 
+    // Atributos de controle
     int n;
-    int comparaCocktail, trocaCocktail;//valores obtidos a partir do metodo Cocktail Sort
-    int comparaSelection, trocaSelection;//valores obtidos a partir do metodo Selection Sort
-    int comparaInsertion, trocaInsertion;//valores obtidos a partir do metodo Insertion Sort
-    int comparaBubble, trocaBubble;//valores obtidos a partir do metodo Bubble Sort
-    int comparaShell, trocaShell;//valores obtidos a partir do metodo Shell Sort
-    int comparaMerge, trocaMerge;//valores obtidos a partir do metodo Merge Sort
-    int comparaQuick, trocaQuick;//valores obtidos a partir do metodo Quick Sort
-    int vet20[20], vet50[50], vet100[100];//vetores de valores que podem ser escolhidos
-    int tempoCocktail, tempoSelection, tempoInsertion, tempoBubble, tempoShel, tempoMerge, tempoQuick;
-    int vetPontos[10000];
+
+    // Contadores (usando long para evitar overflow)
+    long comparaCocktail, trocaCocktail, tempoCocktail;
+    long comparaSelection, trocaSelection, tempoSelection;
+    long comparaInsertion, trocaInsertion, tempoInsertion;
+    long comparaBubble,    trocaBubble,    tempoBubble;
+    long comparaShell,     trocaShell,     tempoShel; // Mantido 'tempoShel' p/ compatibilidade UI
+    long comparaMerge,     trocaMerge,     tempoMerge;
+    long comparaQuick,     trocaQuick,     tempoQuick;
+
+    // Vetores de dados
+    int vet20[20], vet50[50], vet100[100], vetPontos[10000];
     int pontos[NUMERO_INTERACOES_GRAFICO];
 
+private:
+    // Auxiliar do Merge
+    void mergeIntercala(int vet[], int p, int q, int r);
 };
 
 #endif // SORT_H

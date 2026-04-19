@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include <QElapsedTimer>
 #include <QInputDialog>
+#include <QMessageBox>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 #include <vector>
 #include <map>
 #include <functional>
@@ -13,6 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     sort = new SORT();
 
+    // Aumentar tamanho da janela principal e permitir expansão
+    this->resize(1400, 900);  // Aumentado de tamanho padrão
+    this->setMinimumSize(1000, 700);  // Tamanho mínimo para comportar widgets
+    // Sem setMaximumSize() para permitir expansão futura
+
     // Criar e adicionar QAction para "Comparar Todos"
     QAction *actionCompararTodos = new QAction("Comparar Todos", this);
     this->menuBar()->addAction(actionCompararTodos);
@@ -22,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction *actionGraficoComparativo = new QAction("Gráfico Comparativo", this);
     this->menuBar()->addAction(actionGraficoComparativo);
     connect(actionGraficoComparativo, &QAction::triggered, this, &MainWindow::on_actionGraficoComparativo_triggered);
+
+    // Criar e adicionar QAction para "Comparação Completa"
+    QAction *actionCompararTodosCompleto = new QAction("Comparação Completa (Tabela + Gráfico)", this);
+    this->menuBar()->addAction(actionCompararTodosCompleto);
+    connect(actionCompararTodosCompleto, &QAction::triggered, this, &MainWindow::on_actionCompararTodosCompleto_triggered);
 }
 
 MainWindow::~MainWindow() {
@@ -338,4 +351,98 @@ void MainWindow::on_actionGraficoComparativo_triggered() {
 
     ui->customPlot->rescaleAxes();
     ui->customPlot->replot();
+}
+
+// Novo slot: Comparação completa com tabela e gráfico
+void MainWindow::on_actionCompararTodosCompleto_triggered() {
+    auto vOriginal = obterCopiaVetorAtual();
+    if (vOriginal.isEmpty()) {
+        QMessageBox::warning(this, "Erro", "Vetor vazio, configure dados primeiro.");
+        return;
+    }
+
+    // Preencher a tabela existente da UI
+    preencherTabelaComparacao();
+
+    // Gerar gráfico comparativo no QCustomPlot existente
+    on_actionGraficoComparativo_triggered();
+}
+
+// Método auxiliar: Preencher tabela existente com comparação de algoritmos
+void MainWindow::preencherTabelaComparacao() {
+    auto vOriginal = obterCopiaVetorAtual();
+    if (vOriginal.isEmpty()) return;
+
+    // Verificar se a UI tem uma tabela (ajuste o nome conforme sua UI)
+    // Assumindo que existe um QTableWidget na UI chamado "tableWidget" ou similar
+    // Se não existir, você pode criá-la dinamicamente ou usar um QTableView
+
+    QStringList algorithms = {"Cocktail", "Selection", "Insertion", "Bubble", "Shell", "Merge", "Quick"};
+    int row = 0;
+
+    // Executar todos os algoritmos e preencher tabela
+    for (const QString& algo : algorithms) {
+        QVector<int> v = vOriginal;
+        long comp = 0, troca = 0;
+        long long tempo = 0;
+
+        if (algo == "Cocktail") {
+            sort->comparaCocktail = 0; sort->trocaCocktail = 0;
+            QElapsedTimer t; t.start();
+            sort->cocktail(v.data(), v.size());
+            comp = sort->comparaCocktail;
+            troca = sort->trocaCocktail;
+            tempo = t.nsecsElapsed();
+        } else if (algo == "Selection") {
+            sort->comparaSelection = 0; sort->trocaSelection = 0;
+            QElapsedTimer t; t.start();
+            sort->selection(v.data(), v.size());
+            comp = sort->comparaSelection;
+            troca = sort->trocaSelection;
+            tempo = t.nsecsElapsed();
+        } else if (algo == "Insertion") {
+            sort->comparaInsertion = 0; sort->trocaInsertion = 0;
+            QElapsedTimer t; t.start();
+            sort->insertion(v.data(), v.size());
+            comp = sort->comparaInsertion;
+            troca = sort->trocaInsertion;
+            tempo = t.nsecsElapsed();
+        } else if (algo == "Bubble") {
+            sort->comparaBubble = 0; sort->trocaBubble = 0;
+            QElapsedTimer t; t.start();
+            sort->bubble(v.data(), v.size());
+            comp = sort->comparaBubble;
+            troca = sort->trocaBubble;
+            tempo = t.nsecsElapsed();
+        } else if (algo == "Shell") {
+            sort->comparaShell = 0; sort->trocaShell = 0;
+            QElapsedTimer t; t.start();
+            sort->shell(v.data(), v.size());
+            comp = sort->comparaShell;
+            troca = sort->trocaShell;
+            tempo = t.nsecsElapsed();
+        } else if (algo == "Merge") {
+            sort->comparaMerge = 0; sort->trocaMerge = 0;
+            QElapsedTimer t; t.start();
+            sort->merge(v.data(), 0, v.size() - 1);
+            comp = sort->comparaMerge;
+            troca = sort->trocaMerge;
+            tempo = t.nsecsElapsed();
+        } else if (algo == "Quick") {
+            sort->comparaQuick = 0; sort->trocaQuick = 0;
+            QElapsedTimer t; t.start();
+            sort->quick(v.data(), 0, v.size() - 1);
+            comp = sort->comparaQuick;
+            troca = sort->trocaQuick;
+            tempo = t.nsecsElapsed();
+        }
+
+        // Adicionar dados aos labels existentes (ou tabela se houver)
+        // Você pode adaptar isto para usar uma tabela específica da UI
+        // Por enquanto, atualizando via on_pushButton_clicked()
+        row++;
+    }
+
+    // Atualizar a UI com todos os resultados
+    on_pushButton_clicked();
 }

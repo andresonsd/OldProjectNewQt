@@ -48,6 +48,8 @@ private slots:
     void on_pushButton_clicked(); // Atualiza Labels
     void on_actionCompararTodos_triggered();  // Comparar todos os algoritmos
     void on_actionGraficoComparativo_triggered();  // Novo: Gráfico comparativo de todos
+    void on_actionCompararTodosCompleto_triggered();  // Novo: Comparação completa com tabela e gráfico
+    void preencherTabelaComparacao();  // Novo: método auxiliar para preencher tabela
 
 private:
     // --- Métodos Auxiliares (O segredo da limpeza) ---

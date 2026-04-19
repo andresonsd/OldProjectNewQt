@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Criar e adicionar QAction para "Comparar Todos"
     QAction *actionCompararTodos = new QAction("Comparar Todos", this);
-    ui->menuBar()->addAction(actionCompararTodos);  // Adiciona ao menu principal; ajuste se houver um submenu específico
+    this->menuBar()->addAction(actionCompararTodos);  // Corrigido: menuBar() é método de QMainWindow
     connect(actionCompararTodos, &QAction::triggered, this, &MainWindow::on_actionCompararTodos_triggered);
 }
 

@@ -46,7 +46,8 @@ private slots:
 
     // --- Interface ---
     void on_pushButton_clicked(); // Atualiza Labels
-    void on_actionCompararTodos_triggered();  // Novo slot para comparar todos os algoritmos
+    void on_actionCompararTodos_triggered();  // Comparar todos os algoritmos
+    void on_actionGraficoComparativo_triggered();  // Novo: Gráfico comparativo de todos
 
 private:
     // --- Métodos Auxiliares (O segredo da limpeza) ---

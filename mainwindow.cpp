@@ -15,8 +15,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Criar e adicionar QAction para "Comparar Todos"
     QAction *actionCompararTodos = new QAction("Comparar Todos", this);
-    this->menuBar()->addAction(actionCompararTodos);  // Corrigido: menuBar() é método de QMainWindow
+    this->menuBar()->addAction(actionCompararTodos);
     connect(actionCompararTodos, &QAction::triggered, this, &MainWindow::on_actionCompararTodos_triggered);
+
+    // Criar e adicionar QAction para "Gráfico Comparativo"
+    QAction *actionGraficoComparativo = new QAction("Gráfico Comparativo", this);
+    this->menuBar()->addAction(actionGraficoComparativo);
+    connect(actionGraficoComparativo, &QAction::triggered, this, &MainWindow::on_actionGraficoComparativo_triggered);
 }
 
 MainWindow::~MainWindow() {
@@ -250,4 +255,87 @@ void MainWindow::on_actionCompararTodos_triggered() {
 
     // Atualizar a UI com todos os resultados
     on_pushButton_clicked();
+}
+
+// Novo slot: Gráfico comparativo de todos os algoritmos
+void MainWindow::on_actionGraficoComparativo_triggered() {
+    ui->customPlot->clearGraphs();
+
+    // Cores para diferenciar os algoritmos
+    QVector<QColor> cores = {
+        QColor(255, 0, 0),      // Cocktail - Vermelho
+        QColor(0, 0, 255),      // Selection - Azul
+        QColor(0, 255, 0),      // Insertion - Verde
+        QColor(255, 165, 0),    // Bubble - Laranja
+        QColor(128, 0, 128),    // Shell - Roxo
+        QColor(255, 192, 203),  // Merge - Rosa
+        QColor(165, 42, 42)     // Quick - Marrom
+    };
+
+    QStringList algorithms = {"Cocktail", "Selection", "Insertion", "Bubble", "Shell", "Merge", "Quick"};
+    int colorIndex = 0;
+
+    for (const QString& algo : algorithms) {
+        QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
+
+        for (int i = 0, tam = 10; i < NUMERO_INTERACOES_GRAFICO; i++, tam += 10) {
+            std::vector<int> v(tam);
+            sort->posicoes(tam);
+
+            for (int k = 0; k < tam; k++) v[k] = sort->vetPontos[k];
+
+            long trocas = 0, comparacoes = 0;
+
+            // Executar o algoritmo
+            if (algo == "Cocktail") {
+                sort->cocktail(v.data(), tam);
+                trocas = sort->trocaCocktail;
+                comparacoes = sort->comparaCocktail;
+            } else if (algo == "Selection") {
+                sort->selection(v.data(), tam);
+                trocas = sort->trocaSelection;
+                comparacoes = sort->comparaSelection;
+            } else if (algo == "Insertion") {
+                sort->insertion(v.data(), tam);
+                trocas = sort->trocaInsertion;
+                comparacoes = sort->comparaInsertion;
+            } else if (algo == "Bubble") {
+                sort->bubble(v.data(), tam);
+                trocas = sort->trocaBubble;
+                comparacoes = sort->comparaBubble;
+            } else if (algo == "Shell") {
+                sort->shell(v.data(), tam);
+                trocas = sort->trocaShell;
+                comparacoes = sort->comparaShell;
+            } else if (algo == "Merge") {
+                sort->merge(v.data(), 0, tam - 1);
+                trocas = sort->trocaMerge;
+                comparacoes = sort->comparaMerge;
+            } else if (algo == "Quick") {
+                sort->quick(v.data(), 0, tam - 1);
+                trocas = sort->trocaQuick;
+                comparacoes = sort->comparaQuick;
+            }
+
+            x[i] = tam;
+            y[i] = static_cast<double>(trocas + comparacoes);
+        }
+
+        // Adicionar gráfico com cor e nome distintivos
+        ui->customPlot->addGraph();
+        ui->customPlot->graph(colorIndex)->setData(x, y);
+        ui->customPlot->graph(colorIndex)->setPen(QPen(cores[colorIndex], 2));
+        ui->customPlot->graph(colorIndex)->setName(algo);
+
+        colorIndex++;
+    }
+
+    // Configurar eixos e legenda
+    ui->customPlot->xAxis->setLabel("Tamanho do Vetor");
+    ui->customPlot->yAxis->setLabel("Esforço (Trocas + Comp)");
+    ui->customPlot->legend->setVisible(true);
+    ui->customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop | Qt::AlignLeft);
+
+    ui->customPlot->rescaleAxes();
+    ui->customPlot->replot();
 }

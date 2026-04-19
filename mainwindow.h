@@ -46,6 +46,7 @@ private slots:
 
     // --- Interface ---
     void on_pushButton_clicked(); // Atualiza Labels
+    void on_actionCompararTodos_triggered();  // Novo slot para comparar todos os algoritmos
 
 private:
     // --- Métodos Auxiliares (O segredo da limpeza) ---
@@ -60,6 +61,7 @@ private:
 
     // Obtém uma cópia do vetor selecionado no momento (20, 50, 100 ou custom)
     QVector<int> obterCopiaVetorAtual();
+    void executeSort(const QString& algorithmName);
 
     Ui::MainWindow *ui;
     SORT *sort;

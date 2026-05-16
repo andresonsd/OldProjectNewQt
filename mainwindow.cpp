@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     sort = new SORT();
 
     // Aumentar tamanho da janela principal e permitir expansão
-    this->resize(1400, 900);  // Aumentado de tamanho padrão
-    this->setMinimumSize(1000, 700);  // Tamanho mínimo para comportar widgets
+    this->resize(900, 300);  // Aumentado de tamanho padrão
+    this->setMinimumSize(900, 300);  // Tamanho mínimo para comportar widgets
     // Sem setMaximumSize() para permitir expansão futura
 
     // Criar e adicionar QAction para "Comparar Todos"
@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionGraficoComparativo, &QAction::triggered, this, &MainWindow::on_actionGraficoComparativo_triggered);
 
     // Criar e adicionar QAction para "Comparação Completa"
-    QAction *actionCompararTodosCompleto = new QAction("Comparação Completa (Tabela + Gráfico)", this);
+    QAction *actionCompararTodosCompleto = new QAction("Comparação Completa (Tab+Graf)", this);
     this->menuBar()->addAction(actionCompararTodosCompleto);
     connect(actionCompararTodosCompleto, &QAction::triggered, this, &MainWindow::on_actionCompararTodosCompleto_triggered);
 }
@@ -292,42 +292,43 @@ void MainWindow::on_actionGraficoComparativo_triggered() {
         QVector<double> x(NUMERO_INTERACOES_GRAFICO), y(NUMERO_INTERACOES_GRAFICO);
 
         for (int i = 0, tam = 10; i < NUMERO_INTERACOES_GRAFICO; i++, tam += 10) {
+            SORT tempSort;
             std::vector<int> v(tam);
-            sort->posicoes(tam);
+            tempSort.posicoes(tam);
 
-            for (int k = 0; k < tam; k++) v[k] = sort->vetPontos[k];
+            for (int k = 0; k < tam; k++) v[k] = tempSort.vetPontos[k];
 
             long trocas = 0, comparacoes = 0;
 
-            // Executar o algoritmo
+            // Executar o algoritmo em tempSort para não alterar o estado atual de sort
             if (algo == "Cocktail") {
-                sort->cocktail(v.data(), tam);
-                trocas = sort->trocaCocktail;
-                comparacoes = sort->comparaCocktail;
+                tempSort.cocktail(v.data(), tam);
+                trocas = tempSort.trocaCocktail;
+                comparacoes = tempSort.comparaCocktail;
             } else if (algo == "Selection") {
-                sort->selection(v.data(), tam);
-                trocas = sort->trocaSelection;
-                comparacoes = sort->comparaSelection;
+                tempSort.selection(v.data(), tam);
+                trocas = tempSort.trocaSelection;
+                comparacoes = tempSort.comparaSelection;
             } else if (algo == "Insertion") {
-                sort->insertion(v.data(), tam);
-                trocas = sort->trocaInsertion;
-                comparacoes = sort->comparaInsertion;
+                tempSort.insertion(v.data(), tam);
+                trocas = tempSort.trocaInsertion;
+                comparacoes = tempSort.comparaInsertion;
             } else if (algo == "Bubble") {
-                sort->bubble(v.data(), tam);
-                trocas = sort->trocaBubble;
-                comparacoes = sort->comparaBubble;
+                tempSort.bubble(v.data(), tam);
+                trocas = tempSort.trocaBubble;
+                comparacoes = tempSort.comparaBubble;
             } else if (algo == "Shell") {
-                sort->shell(v.data(), tam);
-                trocas = sort->trocaShell;
-                comparacoes = sort->comparaShell;
+                tempSort.shell(v.data(), tam);
+                trocas = tempSort.trocaShell;
+                comparacoes = tempSort.comparaShell;
             } else if (algo == "Merge") {
-                sort->merge(v.data(), 0, tam - 1);
-                trocas = sort->trocaMerge;
-                comparacoes = sort->comparaMerge;
+                tempSort.merge(v.data(), 0, tam - 1);
+                trocas = tempSort.trocaMerge;
+                comparacoes = tempSort.comparaMerge;
             } else if (algo == "Quick") {
-                sort->quick(v.data(), 0, tam - 1);
-                trocas = sort->trocaQuick;
-                comparacoes = sort->comparaQuick;
+                tempSort.quick(v.data(), 0, tam - 1);
+                trocas = tempSort.trocaQuick;
+                comparacoes = tempSort.comparaQuick;
             }
 
             x[i] = tam;

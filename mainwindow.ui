@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>820</width>
-    <height>300</height>
+    <height>290</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,6 +24,9 @@
     <width>900</width>
     <height>600</height>
    </size>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
